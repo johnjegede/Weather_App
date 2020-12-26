@@ -3,28 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css" />
-    <title>Document</title>
+    <title>The Weather App</title>
   </head>
   <body>
     <header>
-      <h1>Weather Dashboard</h1>
+      <h1 class ="head">Weather Dashboard</h1>
     </header>
-    <aside>
-      <label for="">Search for a City</label>
-      <input type="text" />
-      <button></button>
+    <aside >
+      <label class = "label" for="">Search for a City:</label>
+      <br>
 
-      <section>
+      <input class = "input" type="text" />
+      <button class="btn"><i class="fa fa-search"></i></button>
+
+      <section class="previous">
         <h3>Previous Searches</h3>
+        <ul class="search"></ul>
       </section>
     </aside>
-    <section>
-      <section>
+    <section class="display">
+      <section class="current">
         <h3>Current</h3>
+        <p class="city"> <span class="date"></span> <span class="icon"></span></p>
+        <p >Temperature: <span class="temp"></span>  </p>
+        <p>Humidity: <span class="humidity"></span> </p>
+        <p>Wind Speed <span class="wind"></span> </p>
+        <p>UV Index <span class="uv"></span> </p>
       </section>
 
-      <section>
+      <section class="forcast">
         <h3>5-day Forcast</h3>
       </section>
     </section>
