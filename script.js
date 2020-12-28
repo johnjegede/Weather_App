@@ -4,7 +4,7 @@ $(document).ready(function () {
   var longitude;
   var cities = [];
   var cityEl = localStorage.getItem("cityEl");
-  var date = moment().format("dddd, MMMM Do YYYY");
+  var date = moment().format("ddd, MMM Do YYYY");
 
   var submit = $(".btn");
   var $citylist = $("#search");
@@ -120,12 +120,12 @@ $(document).ready(function () {
         "<p>" +
           moment()
             .add(1 + i, "days")
-            .format("dddd, MMMM Do YYYY") +
+            .format("ddd, MMM Do YYYY") +
           "</p>"
       );
       var $img = $("<img src = http://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + ".png />");
-      var $temp = $("<p>" + data.daily[i].temp.day + "</p>");
-      var $humidity = $("<p>" + data.daily[i].humidity + "</p>");
+      var $temp = $("<p>Temp: " + data.daily[i].temp.day + "</p>");
+      var $humidity = $("<p>Humidity: " + data.daily[i].humidity + "</p>");
 
       $forcast.append($date, $img, $temp, $humidity);
       $section.append($forcast);
