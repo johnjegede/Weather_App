@@ -1,10 +1,10 @@
 $(document).ready(function () {
-  var apikey = "61b3a83a8674abd5cdfebbda62719854";
+  var apikey = "61b3a83a8674abd5cdfebbda62719854";  // api key for the weather
   var latitude;
   var longitude;
   var cities = [];
-  var cityEl = localStorage.getItem("cityEl");
-  var date = moment().format("ddd, MMM Do YYYY");
+  var cityEl = localStorage.getItem("cityEl");// local storage to get last searched city
+  var date = moment().format("ddd, MMM Do YYYY"); // date 
 
   var submit = $(".btn");
   var $citylist = $("#search");
@@ -15,6 +15,7 @@ $(document).ready(function () {
     getCordinats(cityEl);
   }
 
+  // click the submit button to get the weather of the location
   submit.on("click", function (e) {
     e.preventDefault();
     var city = $("#input").val();
@@ -32,6 +33,7 @@ $(document).ready(function () {
     $("#input").val("");
   });
 
+  //display the search history
   function displaySearch(cities) {
     $citylist.text(" ");
     for (var i = 0; i < cities.length; i++) {
@@ -40,13 +42,16 @@ $(document).ready(function () {
     }
   }
 
+  //Go get searched city in the city list
   $citylist.on("click", function (event) {
     cityevent = event.target.textContent;
+    localStorage.setItem("cityEl",cityevent);
     $("#citys").text(cityevent);
     $("#input").val("");
     getCordinats(cityevent);
   });
 
+  //Get the co-ordinates of the city
   function getCordinats(city) {
     var cityname = city.toLowerCase();
 
@@ -66,13 +71,14 @@ $(document).ready(function () {
     });
   }
 
+  //Get the weather conditions in the city
   function getCurrentWether(long, lat) {
     var currentUrl =
       "https://api.openweathermap.org/data/2.5/onecall?lat=" +
       lat +
       "&lon=" +
       long +
-      "&exclude=minutely,hourly,alerts&appid=" +
+      "&units=metric&exclude=minutely,hourly,alerts&appid=" +
       apikey;
 
     $.ajax({
@@ -85,8 +91,9 @@ $(document).ready(function () {
       );
       $("#icon").attr("alt","the weathe icon");
       $("#temp").text(response.current.temp);
-      $("#humidity").text(response.current.humidity);
-      $("#wind").text(response.current.wind_speed);
+      $("#temp").append(" &#8451;");
+      $("#humidity").text(response.current.humidity+"%");
+      $("#wind").text(response.current.wind_speed+" Meter/sec");
       $("#uv").text(response.current.uvi);
 
       setUVcolor(response.current.uvi);
@@ -95,6 +102,7 @@ $(document).ready(function () {
     });
   }
 
+  //Set the color of the uv index
   function setUVcolor(data){
     if(data >= 0 && data <= 2)
     {
@@ -111,6 +119,7 @@ $(document).ready(function () {
     }
   }
 
+  //Get the 5 days future forecast
   function futureForcast(data) {
     var $section = $(".forecast");
     $section.text(" ");
@@ -124,8 +133,8 @@ $(document).ready(function () {
           "</p>"
       );
       var $img = $("<img src = http://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + ".png />");
-      var $temp = $("<p>Temp: " + data.daily[i].temp.day + "</p>");
-      var $humidity = $("<p>Humidity: " + data.daily[i].humidity + "</p>");
+      var $temp = $("<p>Temp: " + data.daily[i].temp.day +" &#8451; </p>");
+      var $humidity = $("<p>Humidity: " + data.daily[i].humidity + "%</p>");
 
       $forcast.append($date, $img, $temp, $humidity);
       $section.append($forcast);
