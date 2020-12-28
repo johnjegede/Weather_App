@@ -93,7 +93,7 @@ $(document).ready(function () {
       $("#temp").text(response.current.temp);
       $("#temp").append(" &#8451;");
       $("#humidity").text(response.current.humidity+"%");
-      $("#wind").text(response.current.wind_speed+" Meter/sec");
+      $("#wind").text(response.current.wind_speed+" Meters/second");
       $("#uv").text(response.current.uvi);
 
       setUVcolor(response.current.uvi);
