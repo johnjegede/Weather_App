@@ -1,15 +1,15 @@
 $(document).ready(function () {
-  var apikey = "61b3a83a8674abd5cdfebbda62719854";  // api key for the weather
+  var apikey = "61b3a83a8674abd5cdfebbda62719854"; // api key for the weather
   var latitude;
   var longitude;
   var cities = [];
-  var cityEl = localStorage.getItem("cityEl");// local storage to get last searched city
-  var date = moment().format("ddd, MMM Do YYYY"); // date 
+  var cityEl = localStorage.getItem("cityEl"); // local storage to get last searched city
+  var date = moment().format("ddd, MMM Do YYYY"); // date
 
   var submit = $(".btn");
   var $citylist = $("#search");
 
-  if(cityEl !== null){
+  if (cityEl !== null) {
     $("#citys").text(cityEl);
     $("#date").text(" " + date);
     getCordinats(cityEl);
@@ -21,7 +21,7 @@ $(document).ready(function () {
     var city = $("#input").val();
     $("#citys").text(city);
     $("#date").text(" " + date);
-    localStorage.setItem("cityEl",city);
+    localStorage.setItem("cityEl", city);
 
     if (cities.includes(city) === false) {
       cities.push(city);
@@ -45,7 +45,7 @@ $(document).ready(function () {
   //Go get searched city in the city list
   $citylist.on("click", function (event) {
     cityevent = event.target.textContent;
-    localStorage.setItem("cityEl",cityevent);
+    localStorage.setItem("cityEl", cityevent);
     $("#citys").text(cityevent);
     $("#input").val("");
     getCordinats(cityevent);
@@ -87,13 +87,15 @@ $(document).ready(function () {
     }).then(function (response) {
       $("#icon").attr(
         "src",
-        "http://openweathermap.org/img/wn/" + response.current.weather[0].icon+ ".png"
+        "http://openweathermap.org/img/w/" +
+          response.current.weather[0].icon +
+          ".png"
       );
-      $("#icon").attr("alt","the weathe icon");
+      $("#icon").attr("alt", "the weathe icon");
       $("#temp").text(response.current.temp);
       $("#temp").append(" &#8451;");
-      $("#humidity").text(response.current.humidity+"%");
-      $("#wind").text(response.current.wind_speed+" Meters/second");
+      $("#humidity").text(response.current.humidity + "%");
+      $("#wind").text(response.current.wind_speed + " Meters/second");
       $("#uv").text(response.current.uvi);
 
       setUVcolor(response.current.uvi);
@@ -103,19 +105,15 @@ $(document).ready(function () {
   }
 
   //Set the color of the uv index
-  function setUVcolor(data){
-    if(data >= 0 && data <= 2)
-    {
-      $("#uv").css({"background-color":"green"});
-    }else if(data >= 3 && data <= 5)
-    {
-      $("#uv").css({"background-color":"yellow"});
-    }else if(data >= 6 && data <= 7)
-    {
-      $("#uv").css({"background-color":"orange"});
-    }else if(data >= 8 && data <= 10)
-    {
-      $("#uv").css({"background-color":"red"});
+  function setUVcolor(data) {
+    if (data >= 0 && data <= 2) {
+      $("#uv").css({ "background-color": "green" });
+    } else if (data >= 3 && data <= 5) {
+      $("#uv").css({ "background-color": "yellow" });
+    } else if (data >= 6 && data <= 7) {
+      $("#uv").css({ "background-color": "orange" });
+    } else if (data >= 8 && data <= 10) {
+      $("#uv").css({ "background-color": "red" });
     }
   }
 
@@ -132,8 +130,12 @@ $(document).ready(function () {
             .format("ddd, MMM Do YYYY") +
           "</p>"
       );
-      var $img = $("<img src = http://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + ".png />");
-      var $temp = $("<p>Temp: " + data.daily[i].temp.day +" &#8451; </p>");
+      var $img = $(
+        "<img src = http://openweathermap.org/img/w/" +
+          data.daily[i].weather[0].icon +
+          ".png />"
+      );
+      var $temp = $("<p>Temp: " + data.daily[i].temp.day + " &#8451; </p>");
       var $humidity = $("<p>Humidity: " + data.daily[i].humidity + "%</p>");
 
       $forcast.append($date, $img, $temp, $humidity);
