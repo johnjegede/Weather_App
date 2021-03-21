@@ -7,13 +7,13 @@ This is a weather app that shows the current weather and the 5 day forcast for t
 ## Search
 To use the app enter the city in the search box
 
-<img src="images/Image2.PNG" alt="drawing" width="200"/>
+![Weather app](images/Image2.PNG)
 
 
 
 The city is added to the previous seaches search in case yu want  to search that city again
 
-<img src="images/Image5.PNG" alt="drawing" width="200"/>
+![Weather app](images/Image5.PNG)
 
 
 ## Current weather
